@@ -8,12 +8,15 @@ import com.example.cryptoapp.R
 import com.example.cryptoapp.data.network.ApiFactory
 import com.example.cryptoapp.databinding.ItemCoinInfoBinding
 import com.example.cryptoapp.data.network.model.CoinInfoDto
+import com.example.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.example.cryptoapp.domain.CoinInfo
 import com.squareup.picasso.Picasso
 
 class CoinInfoAdapter(private val context: Context) :
-    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
-    //    lateinit var bindind: ItemCoinInfoBinding
+    RecyclerView.Adapter<CoinInfoViewHolder>()
+{
+//        lateinit var binding: ItemCoinInfoBinding
+
     var coinInfoList: List<CoinInfo> = listOf()
         set(value) {
             field = value
@@ -21,14 +24,8 @@ class CoinInfoAdapter(private val context: Context) :
         }
     var onCoinClickListener: OnCoinClickListener? = null
 
-    inner class CoinInfoViewHolder(binding: ItemCoinInfoBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val ivLogoCoin = binding.ivLogoCoin
-        val tvSymbols = binding.tvSymbols
-        val tvPrice = binding.tvPrice
-        val tvTime = binding.tvTime
 
-    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding =
@@ -40,7 +37,7 @@ class CoinInfoAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
         val coin = coinInfoList[position]
-        with(holder) {
+        with(holder.binding) {
             with(coin) {
                 val symbolsTemplate = context.resources.getString(R.string.symbols_template)
                 val lastUpdate = context.resources.getString(R.string.last_update)
@@ -48,7 +45,7 @@ class CoinInfoAdapter(private val context: Context) :
                 tvPrice.text = price.toString()
                 tvTime.text = String.format(lastUpdate, lastupdate)
                 Picasso.get().load(imageurl).into(ivLogoCoin)
-                itemView.setOnClickListener {
+                root.setOnClickListener {
                     onCoinClickListener?.onCoinClick(this)
                 }
             }

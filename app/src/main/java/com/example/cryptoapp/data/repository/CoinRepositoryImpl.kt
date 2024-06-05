@@ -41,7 +41,6 @@ class CoinRepositoryImpl(
                 val dbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
                 coinInfo.insertPriceList(dbModelList)
             } catch (e: Exception) {
-                TODO("Not yet implemented")
             }
             delay(1000)
         }
