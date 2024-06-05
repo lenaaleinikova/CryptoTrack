@@ -1,18 +1,16 @@
-package com.example.cryptoapp
+package com.example.cryptoapp.presentation
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.example.cryptoapp.Api.ApiFactory
-import com.example.cryptoapp.database.AppDatabase
-import com.example.cryptoapp.pojo.CoinPriceInfo
-import com.example.cryptoapp.pojo.CoinPriceInfoRawData
+import com.example.cryptoapp.data.network.ApiFactory
+import com.example.cryptoapp.data.database.AppDatabase
+import com.example.cryptoapp.data.model.CoinPriceInfo
+import com.example.cryptoapp.data.model.CoinPriceInfoRawData
 import com.google.gson.Gson
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.io.File.separator
 import java.util.concurrent.TimeUnit
 
 class CoinViewModel(application: Application) : AndroidViewModel(application) {
