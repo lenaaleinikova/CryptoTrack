@@ -33,10 +33,11 @@ class CoinPriceListActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+        bindind.rvCoinPriceList.itemAnimator = null
         viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this, Observer {
             Log.d("TEST_OF_LOADING_DATA", it.toString())
-            adapter.coinInfoList = it
+            adapter.submitList(it)
         })
 
     }
