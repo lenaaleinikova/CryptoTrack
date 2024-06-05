@@ -5,8 +5,8 @@ data class CoinInfo    (
     var tosymbol: String?,
     var lastmarket: String?,
     var price: Double?,
-    var lastupdate: Long?,
+    var lastupdate: String?,
     var highday: Double?,
     var lowday: Double?,
-    var imageurl: String?
+    var imageurl: String
 )
