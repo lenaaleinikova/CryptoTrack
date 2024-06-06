@@ -1,6 +1,7 @@
 package com.example.cryptoapp.data.workers
 
 import android.content.Context
+import androidx.work.Constraints
 import androidx.work.CoroutineWorker
 import androidx.work.OneTimeWorkRequest
 import androidx.work.OneTimeWorkRequestBuilder
@@ -10,6 +11,7 @@ import com.example.cryptoapp.data.database.AppDatabase
 import com.example.cryptoapp.data.mapper.CoinMapper
 import com.example.cryptoapp.data.network.ApiFactory
 import kotlinx.coroutines.delay
+import androidx.work.NetworkType
 
 class RefreshDataWorker(
     context: Context,
@@ -19,6 +21,11 @@ class RefreshDataWorker(
     private val coinInfo = AppDatabase.getInstance(context).coinPriceInfoDao()
     private val mapper = CoinMapper()
     private val apiService = ApiFactory.apiService
+
+    val constraints = Constraints.Builder()
+        .setRequiredNetworkType(NetworkType.UNMETERED)
+        .build()
+
     override suspend fun doWork(): Result {
         while (true) {
             try {
@@ -34,11 +41,17 @@ class RefreshDataWorker(
         }
     }
 
-    companion object{
-        const val NAME ="RefreshDataWorker"
+    companion object {
+        const val NAME = "RefreshDataWorker"
 
-        fun makeRequest(): OneTimeWorkRequest{
-            return OneTimeWorkRequestBuilder<RefreshDataWorker>().build()
+        fun makeRequest(): OneTimeWorkRequest {
+            val constraints = Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.UNMETERED) // Ограничение по Wi-Fi
+                .build()
+
+            return OneTimeWorkRequestBuilder<RefreshDataWorker>()
+//                .setConstraints(constraints)
+                .build()
         }
     }
 }
