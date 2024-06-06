@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.cryptoapp.R
 import com.example.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.example.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.example.cryptoapp.data.network.model.CoinInfoDto
@@ -26,11 +27,12 @@ class CoinPriceListActivity : AppCompatActivity() {
         adapter.onCoinClickListener = object : CoinInfoAdapter.OnCoinClickListener {
             override fun onCoinClick(coinInfoDto: CoinInfo) {
                 Log.d("ON_CLICK_TEST", coinInfoDto.fromsymbol)
-                val intent = CoinDetailActivity.newIntent(
-                    this@CoinPriceListActivity,
-                    coinInfoDto.fromsymbol
-                )
-                startActivity(intent)
+                if (bindind.fragmentContainer == null){
+                    launchDetailActivity(coinInfoDto.fromsymbol)
+                }
+                else{
+                    launchDetailFragment(coinInfoDto.fromsymbol)
+                }
             }
         }
         bindind.rvCoinPriceList.itemAnimator = null
@@ -40,5 +42,20 @@ class CoinPriceListActivity : AppCompatActivity() {
             adapter.submitList(it)
         })
 
+    }
+    private fun launchDetailActivity(fromSymbol: String){
+        val intent = CoinDetailActivity.newIntent(
+            this@CoinPriceListActivity,
+            fromSymbol
+        )
+        startActivity(intent)
+    }
+    private fun launchDetailFragment(fromSymbol: String) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, CoinDetailFragment.newInstance(fromSymbol))
+            .addToBackStack(null)
+            .commit()
     }
 }
