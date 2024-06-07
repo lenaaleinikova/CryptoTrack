@@ -39,10 +39,12 @@ android {
 
 dependencies {
     implementation("androidx.activity:activity:1.9.0")
+    androidTestImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     val lifecycle_version = "2.8.1"
     val room_version = "2.6.1"
 
-
+    implementation ("com.google.dagger:dagger:2.35.1")
+    ksp ("com.google.dagger:dagger-compiler:2.35.1")
 
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:$room_version")
