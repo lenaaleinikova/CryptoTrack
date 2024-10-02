@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.cryptoapp.data.network.ApiFactory
 import com.example.cryptoapp.databinding.ActivityCoinDetailBinding
 import com.example.cryptoapp.databinding.FragmentCoinDetailBinding
+import com.example.cryptoapp.di.ApplicationComponent
 import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
@@ -25,11 +26,13 @@ class CoinDetailFragment : Fragment() {
     private val binding:FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding is null")
 
-    private val component by lazy {
-        (requireActivity().application as CoinApp).component
-    }
+//    private val component by lazy {
+//        (requireActivity().application as CoinApp).component
+//    }
+    private lateinit var component: ApplicationComponent
 
     override fun onAttach(context: Context) {
+        component = (requireActivity().application as CoinApp).component
         component.inject(this)
         super.onAttach(context)
     }

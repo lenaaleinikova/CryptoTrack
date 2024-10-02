@@ -9,6 +9,7 @@ import com.example.cryptoapp.R
 import com.example.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.example.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.example.cryptoapp.data.network.model.CoinInfoDto
+import com.example.cryptoapp.di.ApplicationComponent
 import com.example.cryptoapp.domain.CoinInfo
 import javax.inject.Inject
 
@@ -21,11 +22,13 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     lateinit var bindind: ActivityCoinPriceListBinding
 
-    private val component by lazy {
-        (application as CoinApp).component
-    }
+//    private val component by lazy {
+//        (application as CoinApp).component
+//    }
+    private lateinit var component: ApplicationComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        component = (application as CoinApp).component
         component.inject(this)
 
         super.onCreate(savedInstanceState)
