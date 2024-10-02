@@ -10,13 +10,24 @@ import com.example.cryptoapp.presentation.adapters.CoinInfoAdapter
 import com.example.cryptoapp.databinding.ActivityCoinPriceListBinding
 import com.example.cryptoapp.data.network.model.CoinInfoDto
 import com.example.cryptoapp.domain.CoinInfo
+import javax.inject.Inject
 
 
 class CoinPriceListActivity : AppCompatActivity() {
     private lateinit var viewModel: CoinViewModel
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     lateinit var bindind: ActivityCoinPriceListBinding
 
+    private val component by lazy {
+        (application as CoinApp).component
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
+
         super.onCreate(savedInstanceState)
         bindind = ActivityCoinPriceListBinding.inflate(layoutInflater)
         setContentView(bindind.root)
@@ -36,7 +47,7 @@ class CoinPriceListActivity : AppCompatActivity() {
             }
         }
         bindind.rvCoinPriceList.itemAnimator = null
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+        viewModel = ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
         viewModel.coinInfoList.observe(this, Observer {
             Log.d("TEST_OF_LOADING_DATA", it.toString())
             adapter.submitList(it)
