@@ -32,8 +32,8 @@ class CoinDetailFragment : Fragment() {
     private lateinit var component: ApplicationComponent
 
     override fun onAttach(context: Context) {
-        component = (requireActivity().application as CoinApp).component
-        component.inject(this)
+//        component = (requireActivity().application as CoinApp).component
+//        component.inject(this)
         super.onAttach(context)
     }
 

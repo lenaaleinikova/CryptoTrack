@@ -22,14 +22,14 @@ class CoinPriceListActivity : AppCompatActivity() {
 
     lateinit var bindind: ActivityCoinPriceListBinding
 
-//    private val component by lazy {
-//        (application as CoinApp).component
-//    }
-    private lateinit var component: ApplicationComponent
+    private val component by lazy {
+        (application as CoinApp).component
+    }
+//    private lateinit var component: ApplicationComponent
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        component = (application as CoinApp).component
-        component.inject(this)
+//        component = (application as CoinApp).component
+//        component.inject(this)
 
         super.onCreate(savedInstanceState)
         bindind = ActivityCoinPriceListBinding.inflate(layoutInflater)
