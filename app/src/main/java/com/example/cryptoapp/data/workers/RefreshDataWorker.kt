@@ -12,15 +12,19 @@ import com.example.cryptoapp.data.mapper.CoinMapper
 import com.example.cryptoapp.data.network.ApiFactory
 import kotlinx.coroutines.delay
 import androidx.work.NetworkType
+import com.example.cryptoapp.data.database.CoinInfoDao
+import com.example.cryptoapp.data.network.ApiService
+import javax.inject.Inject
 
-class RefreshDataWorker(
+class RefreshDataWorker @Inject constructor(
     context: Context,
-    workerParameters: WorkerParameters
+    workerParameters: WorkerParameters,
+    private val coinInfo: CoinInfoDao,
+    private val apiService: ApiService,
+    private val mapper: CoinMapper
 ) : CoroutineWorker(context, workerParameters) {
 
-    private val coinInfo = AppDatabase.getInstance(context).coinPriceInfoDao()
-    private val mapper = CoinMapper()
-    private val apiService = ApiFactory.apiService
+
 
     val constraints = Constraints.Builder()
         .setRequiredNetworkType(NetworkType.UNMETERED)
