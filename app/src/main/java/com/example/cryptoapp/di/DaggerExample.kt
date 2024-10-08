@@ -18,4 +18,4 @@ interface DaggerComponent {
     fun getFuel(): Fuel
 }
 
-//private var car: Car =DaggerDaggerComponent.create().getCar()
+private var car: Car =DaggerDaggerComponent.create().getCar()

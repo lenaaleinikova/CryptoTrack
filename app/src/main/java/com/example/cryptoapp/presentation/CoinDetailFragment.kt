@@ -26,14 +26,12 @@ class CoinDetailFragment : Fragment() {
     private val binding:FragmentCoinDetailBinding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailBinding is null")
 
-//    private val component by lazy {
-//        (requireActivity().application as CoinApp).component
-//    }
-    private lateinit var component: ApplicationComponent
+    private val component by lazy {
+        (requireActivity().application as CoinApp).component
+    }
 
     override fun onAttach(context: Context) {
-//        component = (requireActivity().application as CoinApp).component
-//        component.inject(this)
+        component.inject(this)
         super.onAttach(context)
     }
 

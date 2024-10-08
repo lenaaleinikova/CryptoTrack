@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp") //version "1.8.0-1.0.8"
+    id("kotlin-kapt")
 }
 
 android {
@@ -52,7 +53,7 @@ dependencies {
     val room_version = "2.6.1"
 
     implementation ("com.google.dagger:dagger:2.46")
-    ksp ("com.google.dagger:dagger-compiler:2.46")
+    kapt ("com.google.dagger:dagger-compiler:2.46")
 
 
 
